@@ -1,117 +1,119 @@
 #include <iostream>
+#include <iostream>
 #include <cmath>
 #include <iomanip>
+
 using namespace std;
 
-//	Прототип процедуры для запроса значений у пользователя.
-void Give_me_numbers(int& A, int& B, int& C, int& D);
+//	РџСЂРѕС‚РѕС‚РёРї С„СѓРЅРєС†РёРё СЃСѓРјРјС‹ СЂСЏРґР°.
+float Sum_of_row(int t);
 
-//	Прототип процедуры для вызова процедур для пар.
-void Couple(int& A, int& B, int& C, int& D, float& Amean, float& Gmean);
+/*	РџСЂРѕС‚РѕС‚РёРї РїСЂРѕС†РµРґСѓСЂС‹ РґР»СЏ Р·Р°РїРёСЃРё Р·РЅР°С‡РµРЅРёР№ РІ РјР°СЃСЃРёРІ
+Рё РІС‹РІРѕРґР° РІРІРёРґРµ С‚Р°Р±Р»РёС†С‹.*/
 
-//	Прототип процедуры Mean.
-void Mean(int X, int Y, float& Amean, float& Gmean);
+void Back_to_the_array(float array[], int tn, int tk, int tx);
 
-//	Прототип процедуры "красивого" вывода.
-void Print_me(char X, char Y, float& Amean, float& Gmean);
+//	РџСЂРѕС‚РѕС‚РёРї РїСЂРѕС†РµРґСѓСЂС‹ Р·Р°РїСЂРѕСЃР° Сѓ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Р·РЅР°С‡РµРЅРёР№.
+void Give_me_boundaries();
+
+//	РџСЂРѕС‚РѕС‚РёРї РїСЂРѕС†РµРґСѓСЂС‹ РґР»СЏ РІС‹РІРѕРґР° РЅР° СЌРєСЂР°РЅ С‚Р°Р±Р»РёС†С‹.
+void Table(int t, float array_element);
+
+//	Р“Р»РѕР±Р°Р»СЊРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РґР»СЏ РєРѕР»РёС‡РµСЃС‚РІР°.
+int N, p1, p2;
 
 int main()
 {
-	//	Объявляем переменные для хранения.
-	float Amean, Gmean;
-	int A, B, C, D;
+	//	 Р’С‹Р·РѕРІ РїСЂРѕС†РµРґСѓСЂС‹ РґР»СЏ Р·Р°РїСЂРѕСЃР° Р·РЅР°С‡РµРЅРёР№ Сѓ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ.
+	Give_me_boundaries();
 
-	//	Вызываем процедуру для запроса значений.
-	Give_me_numbers(A, B, C, D);
-
-	//	Запускаем расчет средних для пар.
-	Couple(A, B, C, D, Amean, Gmean);
+	float array[5+5/2];
+	//	Р—Р°РїСѓСЃРє РїРѕСЃС‚СЂРѕР№РєРё С‚Р°Р±Р»РёС†С‹.
+	Back_to_the_array(array,-5, 5, 2);
 
 	system("pause");
 	return 0;
 }
 
-//	Процедура для запроса у пользователя значений.
-void Give_me_numbers(int& A, int& B, int& C, int& D)
+//	Р¤СѓРЅРєС†РёСЏ РґР»СЏ РЅР°С…РѕР¶РґРµРЅРёСЏ СЃСѓРјРјС‹ СЂСЏРґР°.
+
+float Sum_of_row(int t)
 {
-	/*	Запрос у пользователя значений для
-	A, B, C, D. */
+	//	РџРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚ СЃСѓРјРјС‹.
+	float element = pow(2 * t, -2) / 2.;
 
-	while (A <= 0 && B <= 0 && C <= 0 && D <= 0)
+	//	РћР±СЉСЏРІР»СЏРµРј Рё РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РїРµСЂРµРјРµРЅРЅС‹Рµ.
+	float sum = element;
+
+	for (int i = 1; i < N; i++)
 	{
-		cout << "\n Please, give me, your \n A: ";
-		cin >> A;
+		//	Р’С‹С‡РёСЃР»СЏРµРј РѕС‡РµСЂРµРґРЅРѕР№ СЌР»РµРјРµРЅС‚С‹ СЃСѓРјРјС‹.
+		element *= 2. * t / ((2. * i + 1.) * (2. * i + 2.));
 
-		cout << " B: ";
-		cin >> B;
-
-		cout << " C: ";
-		cin >> C;
-
-		cout << " D: "; cin >> D;
-		cout << endl;
+		//	РџСЂРёР±Р°РІРёРј РµРіРѕ Рє СЃСѓРјРјРµ.
+		sum += element;
 	}
+
+	//	Р’РѕР·РІСЂР°С‰Р°РµРј Р·РЅР°С‡РµРЅРёРµ СЃСѓРјРјС‹.
+	return sum;
 }
 
-//	Процедура для запуска средних для пар (A,B), (A,C) и (A,D).
-void Couple(int& A, int& B, int& C, int& D, float& Amean, float& Gmean)
+// РџСЂРѕС†РµРґСѓСЂР° "РєСЂР°СЃРёРІРѕРіРѕ" РІС‹РІРѕРґР°.
+void Back_to_the_array(float array[], int tn, int tk, int tx)
 {
-	for (char chr = 'B'; chr < 'E'; chr++)
+	//	РЁР°РїРєР° РґР»СЏ, РІРѕР·РјРѕР¶РЅРѕ, Р±СѓРґСѓСЋС‰РµР№ С‚Р°Р±Р»РёС†С‹.
+	printf("\n t   |	S");
+
+	//	РћР±СЉСЏРІР»СЏРµРј Рё РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РїРµСЂРµРјРµРЅРЅС‹Рµ.
+	float S;
+	int n = 0, counter = 0;
+
+	/*	Р—Р°РїСѓСЃРє С†РёРєР»Р°. 
+		Р—Р°РїРѕР»РЅРµРЅРёРµ РјР°СЃСЃРёРІР° РІС‹С‡РёСЃР»РµРЅРЅРѕР№ СЃСѓРјРјРѕР№.
+		РџСЂРѕРІРµСЂРєР° РЅР° РїСЂРёРЅР°РґР»РµР¶РЅРѕСЃС‚СЊ РіСЂР°РЅРёС†Р°Рј
+	(РїСЂРё РїСЂРёРЅР°РґР»РµР¶РЅРѕСЃС‚Рё РІС‹РІРѕРґ РЅР° СЌРєСЂР°РЅ).
+		РџРѕРґСЃС‡РµС‚ РєРѕР»-РІР° СЌР»РµРјРµРЅС‚РѕРІ, РІС‹РІРµРґРµРЅРЅС‹С…
+	РЅР° СЌРєСЂР°РЅ.
+		Р•СЃР»Рё С‚Р°РєРёС… СЌР»РµРјРµРЅС‚РѕРІ РЅРµС‚, С‚Рѕ РІС‹РІРѕРґРёРј
+	СЃРѕРѕР±С‰РµРЅРёРµ РѕР± РѕС€РёР±РєРµ.
+	*/
+
+	for (int t = tn; t <= tk; t += tx)
 	{
-		switch (chr)
+		S = Sum_of_row(t);
+		array[n] = S;
+		if (p1 <= array[n] &&
+			p2 >= array[n])
 		{
-		case 'B':
-
-			//	Вызов процедуры для средних.
-			Mean(A, B, Amean, Gmean);
-
-			//	Печать.
-			Print_me('A', 'B', Amean, Gmean);
-
-			break;
-
-		case 'C':
-
-			//	Вызов процедуры для средних.
-			Mean(A, C, Amean, Gmean);
-
-			//	Печать.
-			Print_me('A', 'C', Amean, Gmean);
-
-			break;
-		case 'D':
-
-			//	Вызов процедуры для средних.
-			Mean(A, D, Amean, Gmean);
-
-			//	Печать.
-			Print_me('A', 'D', Amean, Gmean);
-
-			break;
+			counter++;
+			Table(t, array[n]);
 		}
+		n++;
 	}
+	
+	if (counter == 0)
+		cout << "\n Sorry, but i haven'values in your boundaries."
+		" Please, try again :)"<< endl;
+
+	cout << '\n' << endl;
 }
 
-/*	Процедура для нахождения среднего арифметического
-	и  среднего геометрического*/
-
-void Mean(int X, int Y, float& Amean, float& Gmean)
+void Give_me_boundaries()
 {
-	//	Рассчет среднего арифметического.
-	Amean = float(X + Y) / 2.;
+	//	Р—Р°РїСЂРѕСЃ Сѓ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РєРѕРЅРµС‡РЅРѕРіРѕ С‡РёСЃР»Р°.
+	cout << " Please, give me your value of N: ";
+	cin >> N;
 
-	//	Рассчет среднего геометрического.
-	Gmean = sqrt(float(X * Y));
-
+	//	Р—Р°РїСЂРѕСЃ Сѓ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Р·РЅР°С‡РµРЅРёР№ РіСЂР°РЅРёС†.
+	cout << " Please, give me your value of [p1, p2]: ";
+	cin >> p1 >> p2;
 }
 
-// Процедура "красивого" вывода.
-void Print_me(char X, char Y, float& Amean, float& Gmean)
+void Table(int t, float array_element)
 {
-	cout << "	Couple (" << X << ',' << Y <<
-		") has average = " << Amean <<
-		" and geometric mean = " << Gmean << endl;
+	printf("\n %3d |  %.2e", t, array_element);
 }
+
 
 
 

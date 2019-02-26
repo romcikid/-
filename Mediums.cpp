@@ -17,24 +17,24 @@ void Print_me(char X, char Y, float& Amean, float& Gmean);
 
 int main()
 {
-	//	Îáúÿâëÿåì ïåðåìåííûå äëÿ õðàíåíèÿ.
+	//	Объявляем переменные для хранения.
 	float Amean, Gmean;
 	int A, B, C, D;
 
-	//	Âûçûâàåì ïðîöåäóðó äëÿ çàïðîñà çíà÷åíèé.
+	//	Вызываем процедуру для запроса значений.
 	Give_me_numbers(A, B, C, D);
 
-	//	Çàïóñêàåì ðàñ÷åò ñðåäíèõ äëÿ ïàð.
+	//	Запускаем расчет средних для пар.
 	Couple(A, B, C, D, Amean, Gmean);
 
 	system("pause");
 	return 0;
 }
 
-//	Ïðîöåäóðà äëÿ çàïðîñà ó ïîëüçîâàòåëÿ çíà÷åíèé.
+//	Процедура для запроса у пользователя значений.
 void Give_me_numbers(int& A, int& B, int& C, int& D)
 {
-	/*	Çàïðîñ ó ïîëüçîâàòåëÿ çíà÷åíèé äëÿ
+	/*	Запрос у пользователя значений для
 	A, B, C, D. */
 
 	while (A <= 0 && B <= 0 && C <= 0 && D <= 0)
@@ -53,7 +53,7 @@ void Give_me_numbers(int& A, int& B, int& C, int& D)
 	}
 }
 
-//	Ïðîöåäóðà äëÿ çàïóñêà ñðåäíèõ äëÿ ïàð (A,B), (A,C) è (A,D).
+//	Процедура для запуска средних для пар (A,B), (A,C) и (A,D).
 void Couple(int& A, int& B, int& C, int& D, float& Amean, float& Gmean)
 {
 	for (char chr = 'B'; chr < 'E'; chr++)
@@ -62,29 +62,29 @@ void Couple(int& A, int& B, int& C, int& D, float& Amean, float& Gmean)
 		{
 		case 'B':
 
-			//	Âûçîâ ïðîöåäóðû äëÿ ñðåäíèõ.
+			//	Вызов процедуры для средних.
 			Mean(A, B, Amean, Gmean);
 
-			//	Ïå÷àòü.
+			//	Печать.
 			Print_me('A', 'B', Amean, Gmean);
 
 			break;
 
 		case 'C':
 
-			//	Âûçîâ ïðîöåäóðû äëÿ ñðåäíèõ.
+			//	Вызов процедуры для средних.
 			Mean(A, C, Amean, Gmean);
 
-			//	Ïå÷àòü.
+			//	Печать.
 			Print_me('A', 'C', Amean, Gmean);
 
 			break;
 		case 'D':
 
-			//	Âûçîâ ïðîöåäóðû äëÿ ñðåäíèõ.
+			//	Вызов процедуры для средних.
 			Mean(A, D, Amean, Gmean);
 
-			//	Ïå÷àòü.
+			//	Печать.
 			Print_me('A', 'D', Amean, Gmean);
 
 			break;
@@ -92,20 +92,20 @@ void Couple(int& A, int& B, int& C, int& D, float& Amean, float& Gmean)
 	}
 }
 
-/*	Ïðîöåäóðà äëÿ íàõîæäåíèÿ ñðåäíåãî àðèôìåòè÷åñêîãî
-	è  ñðåäíåãî ãåîìåòðè÷åñêîãî*/
+/*	Процедура для нахождения среднего арифметического
+	и  среднего геометрического*/
 
 void Mean(int X, int Y, float& Amean, float& Gmean)
 {
-	//	Ðàññ÷åò ñðåäíåãî àðèôìåòè÷åñêîãî.
+	//	Рассчет среднего арифметического.
 	Amean = float(X + Y) / 2.;
 
-	//	Ðàññ÷åò ñðåäíåãî ãåîìåòðè÷åñêîãî.
+	//	Рассчет среднего геометрического.
 	Gmean = sqrt(float(X * Y));
 
 }
 
-// Ïðîöåäóðà "êðàñèâîãî" âûâîäà.
+// Процедура "красивого" вывода.
 void Print_me(char X, char Y, float& Amean, float& Gmean)
 {
 	cout << "	Couple (" << X << ',' << Y <<
